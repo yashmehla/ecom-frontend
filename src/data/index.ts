@@ -3,6 +3,7 @@ import type { Product, Review, HeroData, StatItem, NavItem, FooterColumn, ColorS
 // Stable, always-loading images via Picsum (seed-based)
 const P = (seed: string, w = 400, h = 533) =>
   `https://picsum.photos/seed/${seed}/${w}/${h}`
+export const FEATURE_IMAGE = P("feature-band", 1600, 900);
 
 export const SITE = {
   name: 'NOCTURNE',
