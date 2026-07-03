@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Reset ─────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #09090D;
+  color: #EDEAF4;
+}
+
+::selection {
+  background: #C4A9FF;
+  color: #09090D;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  cursor: pointer;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input {
+  font-family: inherit;
+}
+
+/* ── Hover states ─────────────────────────────── */
+.nav-link:hover,
+.text-link:hover,
+.footer-link:hover {
+  color: #EDEAF4 !important;
+}
+
+.icon-btn:hover svg {
+  color: #EDEAF4;
+}
+
+.hero-cta:hover {
+  background: #C4A9FF !important;
+}
+
+.nl-input:focus {
+  border-color: #C4A9FF !important;
+  box-shadow: 0 0 0 1px rgba(196,169,255,0.2);
+}
+
+.nl-btn:hover {
+  background: #C4A9FF !important;
+}
+
+/* ── Layout: Hero grid ────────────────────────── */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.hero-image-wrap {
+  aspect-ratio: 3 / 4;
+}
+
+/* ── Layout: Feature band ─────────────────────── */
+.feature-band {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ── Layout: Reviews ──────────────────────────── */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.07);
+}
+
+/* ── Layout: Newsletter ───────────────────────── */
+.nl-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* ── Mobile ───────────────────────────────────── */
+.navbar-links {
+  display: flex;
+}
+.navbar-search {
+  display: flex;
+}
+.navbar-burger {
+  display: none;
+}
+
+@media (max-width: 740px) {
+  .navbar-links  { display: none !important; }
+  .navbar-search { display: none !important; }
+  .navbar-burger { display: flex !important; }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-image-wrap {
+    aspect-ratio: 4 / 3;
+  }
+
+  .feature-band {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .feature-cell {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nl-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
