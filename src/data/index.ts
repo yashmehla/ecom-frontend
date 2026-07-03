@@ -1,22 +1,21 @@
-import type { Product, Review, HeroData, StatItem, NavItem, FooterColumn } from '@/types'
+import type { Product, Review, HeroData, StatItem, NavItem, FooterColumn, ColorSwatch } from '@/types'
 
-// All images are from Unsplash (free to use).
-// Format: https://images.unsplash.com/photo-{id}?auto=format&fit=crop&w={w}&q=80
-
-const U = (id: string, w = 800, h = 1000) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&h=${h}&q=80`
+// Stable, always-loading images via Picsum (seed-based)
+const P = (seed: string, w = 400, h = 533) =>
+  `https://picsum.photos/seed/${seed}/${w}/${h}`
 
 export const SITE = {
   name: 'NOCTURNE',
   tagline: 'wear the night',
-  description: 'Small-batch drops, released after dark. Once it\'s gone, it\'s gone.',
+  description: "Small-batch drops, released after dark. Once it's gone, it's gone.",
 }
 
 export const NAV: NavItem[] = [
-  { label: 'New Drops', href: '#products' },
-  { label: 'Footwear',  href: '#products' },
-  { label: 'Outerwear', href: '#products' },
-  { label: 'Limited',   href: '#products' },
+  { label: 'New Drops',    href: '#products' },
+  { label: 'Footwear',     href: '#products' },
+  { label: 'Outerwear',    href: '#products' },
+  { label: 'Accessories',  href: '#products' },
+  { label: 'Sale',         href: '#products' },
 ]
 
 export const HERO: HeroData = {
@@ -24,10 +23,10 @@ export const HERO: HeroData = {
   eyebrow: 'Drop 014 — Midnight Run',
   line1: 'After dark',
   line2: 'is our season.',
-  sub: 'Six pieces. Released midnight. No restock.',
-  cta: 'Enter the drop',
-  // Dark editorial fashion — dramatic contrast, moody lighting
-  image: U('1581803118522-7b72a51f8d5c', 800, 1060),
+  sub: 'Six pieces. Released at midnight. No restock. No compromises.',
+  cta: 'Shop the drop',
+  image:  P('fashion-hero-1', 480, 640),
+  image2: P('fashion-hero-2', 320, 480),
   countdownSeconds: 38 * 3600 + 24 * 60 + 9,
 }
 
@@ -38,8 +37,12 @@ export const PRODUCTS: Product[] = [
     category: 'Footwear',
     price: 218,
     tag: 'New',
-    image: U('1542291026-7eec264c27ff', 600, 800),
-    hoverImage: U('1542291026-7eec264c27ff', 600, 800),
+    rating: 4.8,
+    reviews: 142,
+    desc: 'Obsidian-dark low-profile runner. Seamless upper, proprietary cushion sole.',
+    colors: ['black', 'charcoal'],
+    sizes: ['39', '40', '41', '42', '43', '44'],
+    image: P('shoe-runner-1', 400, 533),
   },
   {
     id: 2,
@@ -47,8 +50,13 @@ export const PRODUCTS: Product[] = [
     category: 'Outerwear',
     price: 340,
     originalPrice: 410,
-    tag: '−17%',
-    image: U('1551028719-00167b16eac5', 600, 800),
+    tag: 'Sale',
+    rating: 4.6,
+    reviews: 89,
+    desc: 'Matte-finish satin bomber. Signature embroidered detailing at chest.',
+    colors: ['black', 'olive', 'slate'],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    image: P('jacket-bomber-2', 400, 533),
   },
   {
     id: 3,
@@ -56,7 +64,12 @@ export const PRODUCTS: Product[] = [
     category: 'Outerwear',
     price: 168,
     tag: 'New',
-    image: U('1556821840-3a63f8550d44', 600, 800),
+    rating: 4.9,
+    reviews: 210,
+    desc: '420gsm French terry. Drop-shoulder silhouette. Unisex fit.',
+    colors: ['charcoal', 'black'],
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    image: P('hoodie-dark-3', 400, 533),
   },
   {
     id: 4,
@@ -64,8 +77,133 @@ export const PRODUCTS: Product[] = [
     category: 'Bags',
     price: 122,
     originalPrice: 150,
-    image: U('1548036161-65f7b3d5a6d1', 600, 800),
+    tag: 'Sale',
+    rating: 4.5,
+    reviews: 67,
+    desc: 'Ballistic nylon body. 3 internal compartments. Padded laptop slot.',
+    colors: ['black'],
+    sizes: ['One size'],
+    image: P('bag-sling-4', 400, 533),
   },
+  {
+    id: 5,
+    name: 'Obsidian Cap',
+    category: 'Accessories',
+    price: 64,
+    tag: 'New',
+    rating: 4.7,
+    reviews: 98,
+    desc: 'Unstructured 6-panel. Japanese twill. Tonal embroidery.',
+    colors: ['black', 'navy'],
+    sizes: ['One size'],
+    image: P('cap-dark-5', 400, 533),
+  },
+  {
+    id: 6,
+    name: 'Stealth Cargo',
+    category: 'Bottoms',
+    price: 196,
+    tag: 'Limited',
+    rating: 4.8,
+    reviews: 54,
+    desc: 'Tapered fit cargo. 8 functional pockets. 300gsm ripstop nylon.',
+    colors: ['black', 'olive'],
+    sizes: ['28', '30', '32', '34', '36'],
+    image: P('cargo-pants-6', 400, 533),
+  },
+  {
+    id: 7,
+    name: 'Wraparound Puffer',
+    category: 'Outerwear',
+    price: 420,
+    tag: 'Limited',
+    rating: 4.9,
+    reviews: 32,
+    desc: 'Recycled fill. Oversize cocoon silhouette. Matte black hardware.',
+    colors: ['black'],
+    sizes: ['XS', 'S', 'M', 'L'],
+    image: P('puffer-coat-7', 400, 533),
+  },
+  {
+    id: 8,
+    name: 'Grip Tech Trainer',
+    category: 'Footwear',
+    price: 248,
+    tag: 'New',
+    rating: 4.6,
+    reviews: 77,
+    desc: 'Webbing overlay upper. All-terrain outsole. Reflective pull tabs.',
+    colors: ['black', 'volt'],
+    sizes: ['39', '40', '41', '42', '43', '44', '45'],
+    image: P('trainer-tech-8', 400, 533),
+  },
+  {
+    id: 9,
+    name: 'Micro Tote',
+    category: 'Bags',
+    price: 88,
+    tag: '',
+    rating: 4.4,
+    reviews: 113,
+    desc: 'Canvas body, leather trim. Interior zip pocket. Machine washable.',
+    colors: ['black', 'stone', 'olive'],
+    sizes: ['One size'],
+    image: P('tote-bag-9', 400, 533),
+  },
+  {
+    id: 10,
+    name: 'Track Jacket',
+    category: 'Outerwear',
+    price: 178,
+    tag: '',
+    rating: 4.5,
+    reviews: 61,
+    desc: 'Tricot shell. Side-seam pockets. Contrast piping detail.',
+    colors: ['black', 'white', 'navy'],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    image: P('trackjacket-10', 400, 533),
+  },
+  {
+    id: 11,
+    name: 'Knit Beanie',
+    category: 'Accessories',
+    price: 48,
+    tag: '',
+    rating: 4.8,
+    reviews: 203,
+    desc: '100% merino wool. Ribbed cuff. Oversized fit.',
+    colors: ['black', 'grey', 'cream'],
+    sizes: ['One size'],
+    image: P('beanie-knit-11', 400, 533),
+  },
+  {
+    id: 12,
+    name: 'Slip Loafer',
+    category: 'Footwear',
+    price: 198,
+    originalPrice: 240,
+    tag: 'Sale',
+    rating: 4.3,
+    reviews: 45,
+    desc: 'Suede upper. Latex sole. Padded sock lining.',
+    colors: ['black', 'camel'],
+    sizes: ['39', '40', '41', '42', '43'],
+    image: P('loafer-slip-12', 400, 533),
+  },
+]
+
+export const COLOR_SWATCHES: ColorSwatch[] = [
+  { name: 'black',    hex: '#1A1915' },
+  { name: 'charcoal', hex: '#3D3D3A' },
+  { name: 'olive',    hex: '#5B6040' },
+  { name: 'navy',     hex: '#1F2D44' },
+  { name: 'slate',    hex: '#596070' },
+  { name: 'stone',    hex: '#8A7F72' },
+  { name: 'volt',     hex: '#CBEF00' },
+  { name: 'white',    hex: '#F5F4F0' },
+  { name: 'cream',    hex: '#E8DFC8' },
+  { name: 'camel',    hex: '#C49A5A' },
+  { name: 'grey',     hex: '#8A8A8A' },
 ]
 
 export const REVIEWS: Review[] = [
@@ -108,10 +246,10 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     heading: 'Shop',
     links: [
-      { label: 'New Drops', href: '#' },
-      { label: 'Footwear',  href: '#' },
-      { label: 'Outerwear', href: '#' },
-      { label: 'Accessories', href: '#' },
+      { label: 'New Drops',    href: '#' },
+      { label: 'Footwear',     href: '#' },
+      { label: 'Outerwear',    href: '#' },
+      { label: 'Accessories',  href: '#' },
     ],
   },
   {
@@ -124,6 +262,3 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     ],
   },
 ]
-
-// Feature strip image — dark urban streetscape
-export const FEATURE_IMAGE = U('1477959858617-67f85cf4f1df', 1400, 600)

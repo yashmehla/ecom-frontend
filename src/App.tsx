@@ -1,44 +1,49 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { CartProvider } from '@/context/CartContext'
 import {
   Preloader,
   Navbar,
   Hero,
   Marquee,
   Products,
-  FeatureBand,
   Reviews,
   Newsletter,
   Footer,
+  CartDrawer,
+  Toast,
 } from '@/components'
 
 export default function App() {
   const [ready, setReady] = useState(false)
 
   return (
-    <div style={{ minHeight: '100vh', background: '#09090D' }}>
-      <AnimatePresence>
-        {!ready && (
-          <Preloader key="preloader" onDone={() => setReady(true)} />
-        )}
-      </AnimatePresence>
+    <CartProvider>
+      <div style={{ minHeight: '100vh', background: '#F8F6F1' }}>
+        <AnimatePresence>
+          {!ready && (
+            <Preloader key="preloader" onDone={() => setReady(true)} />
+          )}
+        </AnimatePresence>
 
-      {ready && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.38 }}
-        >
-          <Navbar />
-          <Hero />
-          <Marquee />
-          <Products />
-          <FeatureBand />
-          <Reviews />
-          <Newsletter />
-          <Footer />
-        </motion.div>
-      )}
-    </div>
+        {ready && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.38 }}
+          >
+            <Toast />
+            <CartDrawer />
+            <Navbar />
+            <Hero />
+            <Marquee />
+            <Products />
+            <Reviews />
+            <Newsletter />
+            <Footer />
+          </motion.div>
+        )}
+      </div>
+    </CartProvider>
   )
 }

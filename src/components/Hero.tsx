@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Zap } from 'lucide-react'
 import { T } from '@/tokens'
 import { HERO } from '@/data'
 import { useCountdown } from '@/hooks/useCountdown'
@@ -9,209 +9,291 @@ export function Hero() {
   const { h, m, s } = useCountdown(HERO.countdownSeconds)
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '12%'])
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '6%'])
+  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
 
   return (
     <section
       ref={ref}
       style={{
-        position: 'relative',
-        background: T.bg,
+        background: T.text,
         overflow: 'hidden',
-        minHeight: '92vh',
-        display: 'flex',
-        alignItems: 'center',
+        position: 'relative',
       }}
     >
-      {/* Ambient glow — top right */}
+      {/* Drop badge */}
+      <div style={{
+        position: 'absolute',
+        top: '20px',
+        left: '24px',
+        zIndex: 2,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '6px',
+        background: 'rgba(200,169,110,0.15)',
+        border: '1px solid rgba(200,169,110,0.35)',
+        color: T.gold,
+        fontSize: '10px',
+        letterSpacing: '0.14em',
+        padding: '5px 12px',
+        borderRadius: '20px',
+        fontFamily: "'Inter', sans-serif",
+      }}>
+        <Zap size={9} fill={T.gold} /> Drop {HERO.dropNumber} · Live Now
+      </div>
+
       <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '-5%',
-          right: '-8%',
-          width: '56vw',
-          height: '56vw',
-          borderRadius: '50%',
-          background: `radial-gradient(circle, rgba(196,169,255,0.09) 0%, transparent 65%)`,
-          filter: 'blur(50px)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div className="hero-grid" style={{ maxWidth: '1100px', margin: '0 auto', padding: '80px 28px', width: '100%' }}>
+        className="hero-grid"
+        style={{ maxWidth: '1280px', margin: '0 auto', padding: '70px 24px 56px', width: '100%' }}
+      >
         {/* Left: copy */}
-        <motion.div style={{ y: textY }}>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.25 }}
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontWeight: 300,
-              fontSize: '0.68rem',
-              letterSpacing: '0.28em',
-              color: T.hi,
-              textTransform: 'uppercase',
-              marginBottom: '28px',
-            }}
-          >
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '10px',
+            letterSpacing: '0.24em',
+            color: T.gold,
+            textTransform: 'uppercase',
+            marginBottom: '16px',
+          }}>
             {HERO.eyebrow}
-          </motion.p>
+          </p>
 
-          <h1 style={{ margin: 0, lineHeight: 1.04 }}>
-            {([HERO.line1, HERO.line2] as const).map((line, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 42 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.32 + i * 0.13, duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
-                style={{
-                  display: 'block',
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontWeight: 300,
-                  fontSize: 'clamp(2.8rem, 5.5vw, 4.6rem)',
-                  color: T.text,
-                  letterSpacing: '-0.01em',
-                  fontStyle: i === 1 ? 'italic' : 'normal',
-                }}
-              >
-                {line}
-              </motion.span>
-            ))}
+          <h1 style={{ margin: '0 0 20px', lineHeight: 1.05 }}>
+            <span style={{
+              display: 'block',
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 400,
+              fontSize: 'clamp(2.6rem, 5vw, 4.2rem)',
+              color: '#fff',
+              letterSpacing: '-0.01em',
+            }}>
+              {HERO.line1}
+            </span>
+            <em style={{
+              display: 'block',
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 400,
+              fontStyle: 'italic',
+              fontSize: 'clamp(2.6rem, 5vw, 4.2rem)',
+              color: T.gold,
+              letterSpacing: '-0.01em',
+            }}>
+              {HERO.line2}
+            </em>
           </h1>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.62 }}
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 300,
-              fontSize: '0.94rem',
-              color: T.muted,
-              marginTop: '26px',
-              lineHeight: 1.72,
-              maxWidth: '360px',
-            }}
-          >
+          <p style={{
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 300,
+            fontSize: '14px',
+            color: 'rgba(255,255,255,0.6)',
+            marginBottom: '32px',
+            lineHeight: 1.7,
+            maxWidth: '340px',
+          }}>
             {HERO.sub}
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.78 }}
-            style={{ display: 'flex', alignItems: 'center', gap: '28px', marginTop: '44px', flexWrap: 'wrap' }}
-          >
+          {/* CTAs */}
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '40px' }}>
             <a
               href="#products"
-              className="hero-cta"
               style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 500,
-                fontSize: '0.84rem',
-                color: T.bg,
-                background: T.text,
-                padding: '14px 30px',
-                borderRadius: '2px',
-                textDecoration: 'none',
-                letterSpacing: '0.04em',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '9px',
-                transition: 'background 0.22s',
+                gap: '8px',
+                background: T.gold,
+                color: T.text,
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: 600,
+                fontSize: '12px',
+                letterSpacing: '0.08em',
+                padding: '12px 24px',
+                borderRadius: '4px',
+                textDecoration: 'none',
+                transition: 'opacity 0.15s',
               }}
+              onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
+              onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
             >
-              {HERO.cta} <ArrowRight size={14} />
+              {HERO.cta} <ArrowRight size={13} />
             </a>
+            <a
+              href="#"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'transparent',
+                color: 'rgba(255,255,255,0.8)',
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: 400,
+                fontSize: '12px',
+                letterSpacing: '0.06em',
+                padding: '12px 24px',
+                borderRadius: '4px',
+                textDecoration: 'none',
+                border: '1px solid rgba(255,255,255,0.2)',
+                transition: 'background 0.15s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
+              onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+            >
+              View lookbook
+            </a>
+          </div>
 
-            {/* Live countdown */}
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '7px' }}>
-              <span
-                style={{
-                  fontFamily: "'DM Mono', monospace",
-                  fontSize: '1rem',
-                  color: T.hi,
-                  letterSpacing: '0.04em',
-                }}
-              >
-                {h}:{m}:{s}
-              </span>
-              <span
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: '0.72rem',
-                  color: T.faint,
-                }}
-              >
-                remaining
-              </span>
+          {/* Countdown */}
+          <div style={{
+            display: 'flex',
+            gap: '16px',
+            alignItems: 'flex-end',
+          }}>
+            {[
+              { val: h, unit: 'hrs' },
+              { val: m, unit: 'min' },
+              { val: s, unit: 'sec' },
+            ].map(({ val, unit }) => (
+              <div key={unit} style={{ textAlign: 'center' }}>
+                <div style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: '2rem',
+                  fontWeight: 400,
+                  color: '#fff',
+                  lineHeight: 1,
+                }}>
+                  {val}
+                </div>
+                <div style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '9px',
+                  letterSpacing: '0.16em',
+                  color: 'rgba(255,255,255,0.35)',
+                  textTransform: 'uppercase',
+                  marginTop: '3px',
+                }}>
+                  {unit}
+                </div>
+              </div>
+            ))}
+            <div style={{
+              marginLeft: '4px',
+              paddingBottom: '6px',
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '11px',
+              color: 'rgba(255,255,255,0.35)',
+            }}>
+              until drop closes
             </div>
-          </motion.div>
+          </div>
         </motion.div>
 
-        {/* Right: hero image with parallax */}
+        {/* Right: stacked images */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.38, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          style={{ position: 'relative', borderRadius: '3px', overflow: 'hidden' }}
-          className="hero-image-wrap"
+          transition={{ delay: 0.4, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          style={{ display: 'flex', gap: '14px', alignItems: 'flex-end', position: 'relative' }}
         >
-          <motion.img
-            src={HERO.image}
-            alt="Drop 014 hero piece"
-            loading="eager"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              display: 'block',
-              filter: 'contrast(1.08) saturate(0.55) brightness(0.88)',
-              y: imgY,
-            }}
-          />
-          {/* Bottom gradient overlay */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(to bottom, transparent 55%, rgba(9,9,13,0.65) 100%)',
-            }}
-          />
-          {/* Corner label */}
-          <p
-            style={{
-              position: 'absolute',
-              bottom: '20px',
-              left: '20px',
-              fontFamily: "'DM Mono', monospace",
-              fontSize: '0.6rem',
-              color: 'rgba(255,255,255,0.38)',
-              letterSpacing: '0.14em',
-              margin: 0,
-            }}
+          {/* Tall image */}
+          <motion.div
+            style={{ flex: '0 0 60%', borderRadius: '6px', overflow: 'hidden', y: imgY }}
           >
+            <img
+              src={HERO.image}
+              alt="Drop 014 hero piece"
+              loading="eager"
+              style={{
+                width: '100%',
+                aspectRatio: '3 / 4',
+                objectFit: 'cover',
+                display: 'block',
+                filter: 'contrast(1.05) saturate(0.6)',
+              }}
+            />
+          </motion.div>
+          {/* Offset shorter image */}
+          <div style={{
+            flex: '0 0 36%',
+            borderRadius: '6px',
+            overflow: 'hidden',
+            marginBottom: '28px',
+          }}>
+            <img
+              src={HERO.image2}
+              alt="Lookbook detail"
+              loading="eager"
+              style={{
+                width: '100%',
+                aspectRatio: '2 / 3',
+                objectFit: 'cover',
+                display: 'block',
+                filter: 'contrast(1.05) saturate(0.5) brightness(0.85)',
+              }}
+            />
+          </div>
+          {/* Corner label */}
+          <p style={{
+            position: 'absolute',
+            bottom: '36px',
+            left: '12px',
+            fontFamily: "'Inter', monospace",
+            fontSize: '9px',
+            color: 'rgba(255,255,255,0.3)',
+            letterSpacing: '0.12em',
+            margin: 0,
+          }}>
             NTN / {HERO.dropNumber} / S–XL
           </p>
         </motion.div>
       </div>
 
-      {/* Bottom hairline */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: '28px',
-          right: '28px',
-          height: '1px',
-          background: T.line,
-        }}
-      />
+      {/* Stats bar */}
+      <div style={{
+        borderTop: '1px solid rgba(255,255,255,0.08)',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+      }}>
+        {[
+          { val: '12', label: 'Drops / year' },
+          { val: '≤ 8', label: 'Pieces / drop' },
+          { val: 'Never', label: 'Restocked' },
+          { val: '41k', label: 'Members' },
+        ].map((stat, i, arr) => (
+          <div
+            key={stat.label}
+            style={{
+              padding: '20px 24px',
+              borderRight: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none',
+              textAlign: 'center',
+            }}
+          >
+            <div style={{
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 400,
+              fontSize: '1.6rem',
+              color: '#fff',
+              lineHeight: 1,
+              marginBottom: '4px',
+            }}>
+              {stat.val}
+            </div>
+            <div style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '10px',
+              letterSpacing: '0.12em',
+              color: 'rgba(255,255,255,0.35)',
+              textTransform: 'uppercase',
+            }}>
+              {stat.label}
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   )
 }
