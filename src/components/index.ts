@@ -2,16 +2,16 @@
 // Component Exports
 // =====================
 
-export { default as Preloader } from "./Preloader";
-export { default as Navbar } from "./Navbar";
-export { default as Hero } from "./Hero";
-export { default as Marquee } from "./Marquee";
-export { default as Products } from "./Products";
-export { default as Reviews } from "./Reviews";
-export { default as Newsletter } from "./Newsletter";
-export { default as Footer } from "./Footer";
-export { default as CartDrawer } from "./CartDrawer";
-export { default as Toast } from "./Toast";
+export { Navbar } from "./Navbar";
+export { Hero } from "./Hero";
+export { Marquee } from "./Marquee";
+export { Products } from "./Products";
+export { Reviews } from "./Reviews";
+export { Footer } from "./Footer";
+export { Newsletter } from "./Newsletter";
+export { CartDrawer } from "./CartDrawer";
+export { Toast } from "./Toast";
+export { Preloader } from "./Preloader";
 
 // =====================
 // Types
